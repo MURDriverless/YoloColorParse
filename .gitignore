@@ -1,3 +1,4 @@
 output/*
 YOLO_Dataset/*
 yolov3-training_all.csv
+*.asv
