@@ -3,17 +3,17 @@ clear;
 close all;
 
 boxDatas = readtable('yolov3-training_all.csv', 'HeaderLines', 2);
-boxDatas = sortrows(boxDatas, 'Var1', 'descend');
+boxDatas = sortrows(boxDatas, 'Var1', 'ascend');
 
 boxColors = {'blue', '#ffa500', 'yellow'};
 objectIds = [0, 1, 2];
 
-drawImages = 0;
+drawImages = 1;
 
 mkdir('./output')
 
 figure(1)
-for ii = 1
+for ii = 200:400
     fileName = boxDatas(ii,1);
     boundStrings = boxDatas(ii, 6:end);
     
@@ -32,6 +32,10 @@ for ii = 1
         if numel(boundString) < 1
             break;
         end
+        
+        % before extracting bounding box locations, remove any double
+        % quotes inside boundString, otherwise str2num may return an error
+        boundString = strrep(boundString, '"', '');
         
         boundBox = str2num(boundString);
         
@@ -75,6 +79,7 @@ for ii = 1
 %         figure(ehh)
         if drawImages
             rectangle('Position', boundBox([1 2 4 3]), 'EdgeColor', coneColor{1});
+%             pause(0.1)
         end
 %         images.roi.Rectangle(gca, 'Position', boundBox([1 2 4 3]), 'Color', coneColor{1}, 'InteractionsAllowed', 'none');
 
