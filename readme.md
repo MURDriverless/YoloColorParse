@@ -14,7 +14,7 @@ In this readme, we will go through the required setup so that you can start revi
 
 Put ``YOLO_Dataset``and ``yolov3-training_all.csv`` in root folder. 
 
-The `YOLO_dataset` files can be downloaded from the MIT repository [here](https://github.com/cv-core/MIT-Driverless-CV-TrainingInfra/tree/master/CVC-YOLOv3#download-manually-optional)
+The `YOLO_dataset` files can be downloaded from the MIT repository [here](https://github.com/cv-core/MIT-Driverless-CV-TrainingInfra/tree/master/CVC-YOLOv3#download-manually-optional), or you can use the [direct link](https://storage.cloud.google.com/mit-driverless-open-source/YOLO_Dataset.zip?authuser=1) which should initiate the download. The dataset is about 1.6GB in size.
 
 Note that the output text files are saved to to ``output/`` directory.
 
