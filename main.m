@@ -8,6 +8,9 @@ frameID = 1;
 
 boxDatas = readtable('yolov3-training_all.csv', 'HeaderLines', 2);
 
+% sort video frames in ascending order to ensure consistent ordering
+boxDatas = sortrows(boxDatas, 'Var1', 'ascend');
+
 boxColors = {'blue', [255,165,0]/255, 'yellow'};
 boxColorsStr = {'Blue', 'Orange', 'Yellow'};
 objectIds = [0, 1, 2];
