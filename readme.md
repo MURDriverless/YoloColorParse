@@ -37,6 +37,12 @@ Please see the Wiki for more instructions on how to review the images.
 
 Once you have finished reviewing, you can make a pull request with all the labelled text files. For instance, if you were assigned with the first 500 images (ID from 1 to 500), then you should have 500 output text files, each corresponding to a video frame.
 
+Alternatively, for those who are doing this on a one-off basis, you can zip up the output text files to either Andrew or Steven. Note that the pull request approach is preferred.
+
+## Contact
+
+If there is any questions, problems or issues regarding this, please contact either Andrew or Steven on the MUR Driverless Slack. DM or posting on the `spatial-perception` channel are both fine.
+
 ## TODO
 
 - [ ] SCRIPT CURRENTLY REWRITES OUTPUT TEXTFILE, TEXTFILE PREVIEW TBD
