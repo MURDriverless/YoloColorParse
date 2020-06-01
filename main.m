@@ -2,10 +2,14 @@ clc;
 clear;
 close all;
 
-global mainFigure clickColorID boxColorsStr boxColors boxDatas frameID objectIds
+global mainFigure clickColorID boxColorsStr boxColors boxDatas frameID objectIds startingFrameID
 
-frameID = 1;
+startingFrameID = 24;
 
+outputFolderName = './output';
+
+%% Do not touch
+frameID = startingFrameID;
 boxDatas = readtable('yolov3-training_all.csv', 'HeaderLines', 2);
 
 % sort video frames in ascending order to ensure consistent ordering
@@ -15,7 +19,10 @@ boxColors = {'blue', [255,165,0]/255, 'yellow'};
 boxColorsStr = {'Blue', 'Orange', 'Yellow'};
 objectIds = [0, 1, 2];
 
-mkdir('./output')
+if ~exist(outputFolderName, 'dir')
+    % Folder does not exist so create it.
+    mkdir(outputFolderName);
+end
 
 mainFigure = figure('units','normalized');
 clickColorID = 0;
@@ -29,14 +36,15 @@ loadImage(frameID);
 return
 
 function loadImage(ii)
-    global boxDatas rectangs fileName objectIds boxColorsStr boxColors
+    global boxDatas rectangs fileName objectIds boxColorsStr boxColors frame
     fileName = boxDatas(ii,1);
     boundStrings = boxDatas(ii, 6:end);
     
     frame = imread(['./YOLO_Dataset/', fileName.(1){1}]);
     
     cla;
-    imshow(frame, 'parent', gca);
+    dispImage = imshow(frame, 'parent', gca);
+    set(dispImage, 'ButtonDownFcn', @axisEvents);
     title(fileName.(1){1}, 'Interpreter', 'none');
     xlim([1 size(frame,2)]);
     ylim([1 size(frame,1)]);
@@ -45,6 +53,10 @@ function loadImage(ii)
 
     for jj = 1:numel(boundStrings)
         boundString = boundStrings.(jj){1}; % X0, Y0, H0, W0
+        
+        % before extracting bounding box locations, remove any double
+        % quotes inside boundString, otherwise str2num may return an error
+        boundString = strrep(boundString, '"', '');
         
         if numel(boundString) < 1
             break;
@@ -77,8 +89,11 @@ function loadImage(ii)
         coneColorID = objectIds(colorCount == max(colorCount));
         coneColor = boxColors(colorCount == max(colorCount));
         
-        rectangs{jj} = images.roi.Rectangle(gca, 'Position', boundBox([1 2 4 3]), 'Color', coneColor{1}, 'InteractionsAllowed', 'translate');
-        addlistener(rectangs{jj},'ROIClicked',@allevents);
+        rectangs{jj} = rectangle('Position', boundBox([1 2 4 3]), ...
+        'linewidth', 1, ...
+        'EdgeColor', coneColor{1}, ...
+        'FaceColor', [0, 0, 0, 0.01], ...
+        'ButtonDownFcn', @rectEvents);
 
         Xc = (boundBox(1) + boundBox(4)/2)/size(frame, 2);
         Yc = (boundBox(2) + boundBox(3)/2)/size(frame, 1);
@@ -89,13 +104,32 @@ function loadImage(ii)
     end
 end
 
-function allevents(src,evt)
-    global clickColorID boxColors
+function axisEvents(src,evt)
     evname = evt.EventName;
-    switch(evname)
-        case{'ROIClicked'}
+    selectType = src.Parent.Parent.SelectionType;
+    
+    if strcmp(evname, 'Hit') && strcmp(selectType, 'alt')
+        xlim([1 size(src.CData,2)]);
+        ylim([1 size(src.CData,1)]);
+    end
+end
+
+function rectEvents(src,evt)
+    global clickColorID boxColors frame
+    evname = evt.EventName;
+    
+    % Parent is axis, Parent.Parent is figure
+    selectType = src.Parent.Parent.SelectionType;
+    if strcmp(evname, 'Hit')
+        if strcmp(selectType, 'normal')
             src.UserData{1} = clickColorID;
-            src.Color = boxColors{clickColorID+1};
+            src.EdgeColor = boxColors{clickColorID+1};
+        elseif strcmp(selectType, 'alt')
+            boxDim = [src.UserData{2:5}];
+            
+            xlim(size(frame,2) * (boxDim(1) + boxDim(4) .* [-1, 1]));
+            ylim(size(frame,1) * (boxDim(2) + boxDim(3) .* [-1, 1]));
+        end
     end
 end
 
@@ -118,7 +152,7 @@ function saveOutputFile()
 end
 
 function hotKeyFunc(src,event)
-    global clickColorID frameID
+    global clickColorID frameID startingFrameID frame
     switch(event.Key)
         case('1')
             clickColorID = 0;
@@ -129,17 +163,20 @@ function hotKeyFunc(src,event)
         case('3')
             clickColorID = 2;
             updateClickColor();
-%         case('q')
-%             saveOutputFile()
-%             
-%             if frameID > 1
-%                 frameID = frameID - 1;
-%                 loadImage(frameID);
-%             end
+        case('q')
+            saveOutputFile()
+            
+            if frameID > startingFrameID
+                frameID = frameID - 1;
+                loadImage(frameID);
+            end
         case('e')
             saveOutputFile()
             frameID = frameID + 1;
             loadImage(frameID);
+        case('r')
+            xlim([1 size(frame,2)])
+            ylim([1 size(frame,1)])
     end
     
 end
