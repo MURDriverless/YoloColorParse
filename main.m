@@ -4,7 +4,7 @@ close all;
 
 global mainFigure clickColorID boxColorsStr boxColors boxDatas frameID objectIds startingFrameID
 
-startingFrameID = 24;
+startingFrameID = 1;
 
 outputFolderName = './output';
 
@@ -45,7 +45,7 @@ function loadImage(ii)
     cla;
     dispImage = imshow(frame, 'parent', gca);
     set(dispImage, 'ButtonDownFcn', @axisEvents);
-    title(fileName.(1){1}, 'Interpreter', 'none');
+    title([fileName.(1){1}, ', frameID: ', num2str(ii)], 'Interpreter', 'none');
     xlim([1 size(frame,2)]);
     ylim([1 size(frame,1)]);
     
