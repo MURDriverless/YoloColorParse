@@ -89,6 +89,11 @@ function loadImage(ii)
         coneColorID = objectIds(colorCount == max(colorCount));
         coneColor = boxColors(colorCount == max(colorCount));
         
+        % Event that no color is detect or multiple colors is detected,
+        % take first
+        coneColorID = coneColorID(1);
+        coneColor = coneColor(1);
+
         rectangs{jj} = rectangle('Position', boundBox([1 2 4 3]), ...
         'linewidth', 1, ...
         'EdgeColor', coneColor{1}, ...
