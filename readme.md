@@ -12,6 +12,9 @@ In this readme, we will go through the required setup so that you can start revi
 
 ## Prerequisites
 
+* `MATLAB` (Local Installation or Online)
+* `YOLO_Dataset`
+
 Put ``YOLO_Dataset`` and ``yolov3-training_all.csv`` in root folder. 
 
 The `YOLO_dataset` files can be downloaded from the MIT repository [here](https://github.com/cv-core/MIT-Driverless-CV-TrainingInfra/tree/master/CVC-YOLOv3#download-manually-optional), or you can use the direct link for [`YOLO_dataset`](https://storage.cloud.google.com/mit-driverless-open-source/YOLO_Dataset.zip?authuser=1)/[`yolov3-training_all.csv`](https://storage.cloud.google.com/mit-driverless-open-source/yolov3-training/all.csv?authuser=1) which should initiate the download. The dataset is about 1.6GB in size.
@@ -45,7 +48,8 @@ Alternatively, for those who are doing this on a one-off basis, you can zip up t
 
 If there is any questions, problems or issues regarding this, please contact either Andrew or Steven on the MUR Driverless Slack. DM or posting on the `spatial-perception` channel are both fine.
 
-## TODO
+## Todo
 - [x] Renable `Q` to reverse in frames.
-- [ ] SCRIPT CURRENTLY REWRITES OUTPUT TEXTFILE, TEXTFILE PREVIEW TBD
-- [ ] Include the MIT labels `.csv` files in this repository so that people would only have to download the images. Split the labelling into `train` and `validation` groups, since the `validation` set requires extra attention and quality control.
+- [x] Include the MIT labels `.csv` files in this repository so that people would only have to download the images. Split the labelling into `train` and `validation` groups, since the `validation` set requires extra attention and quality control.
+- [ ] Script currently rewrites output textfile, textfile preview tbd
+- [ ] Add support for reviewing bounding boxes by reading the text files.

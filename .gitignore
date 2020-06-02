@@ -1,4 +1,5 @@
 output/*
 YOLO_Dataset/*
-yolov3-training_all.csv
 *.asv
+yolov3-training_all.csv
+.DS_Store
