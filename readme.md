@@ -34,6 +34,15 @@ Note that if you use the back-button `Q` you would re-write the previous text la
 
 ~~In addition, moving or modifying the bounding box anchor actually does not change the results at all. All we are changing here is the traffic cone colour label.~~ (Changed rectangle interface, should no longer be moveable.)
 
+## Preview Usage
+* Textfile preview uses a refactored version of code.
+* Look at `PreviewExample.m` for an example.
+    * Instantiate `FrameSet` with `FrameSet(PathToDataSetDir, PathToTxtFiles)`.
+    * Feeding a cell array of file/image names, i.e. `vid_100_frame_2.txt`.
+* Hotkeys is the same as the manual usage with `W` as save file without advancing frames.
+
+Note: As textfile preview is only loading from textfiles not not recalculated cone colors, `Q` will "resume" previous work.
+
 ## Review Instructions
 
 Please see the Wiki for more instructions on how to review the images.
@@ -51,5 +60,5 @@ If there is any questions, problems or issues regarding this, please contact eit
 ## Todo
 - [x] Renable `Q` to reverse in frames.
 - [x] Include the MIT labels `.csv` files in this repository so that people would only have to download the images. Split the labelling into `train` and `validation` groups, since the `validation` set requires extra attention and quality control.
-- [ ] Script currently rewrites output textfile, textfile preview tbd
+- [x] Script currently rewrites output textfile, textfile preview tbd
 - [ ] Add support for reviewing bounding boxes by reading the text files.
