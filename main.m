@@ -62,6 +62,10 @@ function loadImage(ii)
             break;
         end
         
+        % before extracting bounding box locations, remove any double
+        % quotes inside boundString, otherwise str2num may return an error
+        boundString = strrep(boundString, '"', '');
+        
         boundBox = str2num(boundString);
         
         crop = frame(boundBox(2) + (1:boundBox(3)), ...
