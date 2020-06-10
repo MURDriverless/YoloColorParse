@@ -10,7 +10,7 @@ outputFolderName = './output';
 
 %% Do not touch
 frameID = startingFrameID;
-boxDatas = readtable('yolov3-training_all.csv', 'HeaderLines', 2);
+boxDatas = readtable('yolov3-training_all.csv', 'HeaderLines', 3, 'Format', 'auto');
 
 % sort video frames in ascending order to ensure consistent ordering
 boxDatas = sortrows(boxDatas, 'Var1', 'ascend');
