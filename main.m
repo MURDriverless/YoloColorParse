@@ -186,8 +186,16 @@ function hotKeyFunc(src,event)
         case('r')
             xlim([1 size(frame,2)])
             ylim([1 size(frame,1)])
+        case('f')
+            saveDisp(frameID);
     end
     
+end
+
+function saveDisp(frameID)
+    outputFile = fopen('./errorFrames.txt', 'a+');
+    fprintf(outputFile, '%d\n', frameID);
+    fclose(outputFile);
 end
 
 function updateClickColor()
