@@ -15,9 +15,9 @@ boxDatas = readtable('yolov3-training_all.csv', 'HeaderLines', 3, 'Format', 'aut
 % sort video frames in ascending order to ensure consistent ordering
 boxDatas = sortrows(boxDatas, 'Var1', 'ascend');
 
-boxColors = {'blue', [255,165,0]/255, 'yellow'};
-boxColorsStr = {'Blue', 'Orange', 'Yellow'};
-objectIds = [0, 1, 2];
+boxColors = {'blue', [255,165,0]/255, 'yellow', 'red'};
+boxColorsStr = {'Blue', 'Orange', 'Yellow', 'False Positive'};
+objectIds = [0, 1, 2, 3];
 
 if ~exist(outputFolderName, 'dir')
     % Folder does not exist so create it.
@@ -171,6 +171,9 @@ function hotKeyFunc(src,event)
             updateClickColor();
         case('3')
             clickColorID = 2;
+            updateClickColor();
+        case('4')
+            clickColorID = 3;
             updateClickColor();
         case('q')
             saveOutputFile()
