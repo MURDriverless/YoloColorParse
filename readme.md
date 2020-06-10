@@ -29,6 +29,7 @@ Note that the output text files are saved to to ``output/`` directory.
 * Right-click or press `R` to revert zoom.
 * Press `E` to advance frame.
 * Press `Q` to go back one frame.
+* Press `F` to tag a frameID as an "error", tagged labels will be in `./errorFrames.txt`.
 
 Note that if you use the back-button `Q` you would re-write the previous text label, which means that you are essentially starting from scratch.
 
