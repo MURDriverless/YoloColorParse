@@ -25,6 +25,7 @@ Note that the output text files are saved to to ``output/`` directory.
 * Change Line 7, ``startingFrameID = 1;`` for starting frame.
 * Press `1`, `2`, `3`, `4` for Blue, Orange, Yellow, and "False Positive" to select the colour that you want to assign.
 * Left-click bounding box to change colour.
+* Left-click drag to "paint" across boxes.
 * Right-click bounding box to zoom in.
 * Right-click or press `R` to revert zoom.
 * Press `E` to advance frame.

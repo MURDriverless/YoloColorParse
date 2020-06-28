@@ -24,7 +24,7 @@ if ~exist(outputFolderName, 'dir')
     mkdir(outputFolderName);
 end
 
-mainFigure = figure('units','normalized');
+mainFigure = figure('units','normalized', 'WindowButtonDownFcn',@drawingMode);
 clickColorID = 0;
 hold on
 disableDefaultInteractivity(gca)
@@ -120,6 +120,36 @@ function axisEvents(src,evt)
     if strcmp(evname, 'Hit') && strcmp(selectType, 'alt')
         xlim([1 size(src.CData,2)]);
         ylim([1 size(src.CData,1)]);
+    end
+end
+
+function drawingMode(src,evt)
+    src.WindowButtonMotionFcn = @wbmcb;
+    src.WindowButtonUpFcn = @wbucb;
+    
+    function wbmcb(src,callbackdata)
+        global rectangs clickColorID boxColors
+        
+        cpt = get(gca,'CurrentPoint');
+        mousePos = cpt(1,1:2);
+        
+        for ii = 1:numel(rectangs)
+            rectang = rectangs{ii};
+            rectPos = rectang.Position;
+            
+            xCheck = (rectPos(1) < mousePos(1)) & (mousePos(1) < (rectPos(1) + rectPos(3)));
+            yCheck = (rectPos(2) < mousePos(2)) & (mousePos(2) < (rectPos(2) + rectPos(4)));
+            
+            if xCheck && yCheck
+                rectang.UserData{1} = clickColorID;
+                rectang.EdgeColor = boxColors{clickColorID+1};
+            end
+        end
+    end
+
+    function wbucb(src,callbackdata)
+      src.WindowButtonMotionFcn = '';
+      src.WindowButtonUpFcn = '';
     end
 end
 
