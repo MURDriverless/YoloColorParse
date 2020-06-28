@@ -41,7 +41,7 @@ Please see the Wiki for more instructions on how to review the images.
 
 ## Submitting the Reviewed Labels
 
-Once you have finished reviewing, you can make a pull request with all the labelled text files. For instance, if you were assigned with the first 500 images (ID from 1 to 500), then you should have 500 output text files, each corresponding to a video frame.
+Once you have finished reviewing, you can make a pull request to [YoloColorParse_Data](https://github.com/MURDriverless/YoloColorParse_Data) with all the labelled text files. For instance, if you were assigned with the first 500 images (ID from 1 to 500), then you should have 500 output text files, each corresponding to a video frame.
 
 Alternatively, for those who are doing this on a one-off basis, you can zip up the output text files to either Andrew or Steven. Note that the pull request approach is preferred.
 
